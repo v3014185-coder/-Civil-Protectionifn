@@ -1,3 +1,4 @@
+/* Базовые настройки темной темы */
 body {
     margin: 0;
     padding: 0;
@@ -6,10 +7,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;
+    padding: 20px 0;
+    box-sizing: border-box;
 }
 
+/* Общий контейнер со светящейся рамкой */
 .main-container {
     border: 2px solid #ff2200;
     box-shadow: 0 0 20px #ff2200;
@@ -18,6 +21,17 @@ body {
     text-align: center;
     max-width: 650px;
     width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+/* Настройка полосы прокрутки (скроллбара) в стиле сайта */
+.main-container::-webkit-scrollbar {
+    width: 6px;
+}
+.main-container::-webkit-scrollbar-thumb {
+    background: #ff2200;
+    box-shadow: 0 0 10px #ff2200;
 }
 
 .menu-box {
@@ -31,12 +45,14 @@ body {
     margin-bottom: 30px;
 }
 
+/* Выравнивание главных кнопок в столбик с расстоянием */
 .button-column {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
+/* Красные светящиеся кнопки */
 .glow-button {
     background: transparent;
     border: 2px solid #ff2200;
@@ -49,7 +65,7 @@ body {
     box-shadow: inset 0 0 10px #ff2200, 0 0 10px #ff2200;
     transition: 0.3s;
     text-transform: uppercase;
-    text-decoration: none; /* Убирает подчеркивание, если это ссылка */
+    text-decoration: none;
     display: inline-block;
 }
 
@@ -59,24 +75,28 @@ body {
     box-shadow: 0 0 30px #ff2200;
 }
 
+/* Оформление блоков с текстом */
 .info-text {
     color: #ff2200;
     text-shadow: 0 0 5px #ff2200;
     font-size: 16px;
     line-height: 1.6;
     text-align: left;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
+    min-height: 20px; /* Чтобы контейнер не схлопывался, пока текст не напечатан */
 }
 
-/* Стили для контейнера ссылки */
+/* Блок под кнопку открытия устава */
 .link-container {
+    margin-top: 25px;
     margin-bottom: 30px;
 }
 
+/* Особый стиль кнопки-ссылки на устав */
 .text-link-btn {
     font-size: 15px;
     padding: 12px 20px;
-    border-color: #ffaa00; /* Выделим ссылку оранжевым свечением для акцента, или замените на #ff2200 для строго красного */
+    border-color: #ffaa00;
     color: #ffaa00;
     box-shadow: inset 0 0 10px #ffaa00, 0 0 10px #ffaa00;
 }
@@ -87,12 +107,46 @@ body {
     box-shadow: 0 0 30px #ffaa00;
 }
 
+/* Списки вакансий */
+.jobs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    margin-bottom: 30px;
+}
+
+.job-item {
+    border-bottom: 1px dashed #551111;
+    padding-bottom: 25px;
+    text-align: left;
+}
+
+.job-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+/* Кнопка "Назад" */
 .back-btn {
     font-size: 14px;
     padding: 10px 20px;
 }
 
+/* Скрытие неактивных экранов */
 .hidden {
     display: none !important;
 }
 
+/* Эффект мигающего курсора в конце печатающегося текста */
+.typing-cursor::after {
+    content: '█';
+    margin-left: 4px;
+    color: #ff2200;
+    text-shadow: 0 0 5px #ff2200;
+    animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
