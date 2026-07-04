@@ -8,19 +8,32 @@
 </head>
 <body>
 
-    <!-- Контейнер для центрирования -->
     <div class="main-container">
         
-        <!-- Первое меню (Стартовое) -->
+        <!-- ЭКРАН 1: Стартовое меню -->
         <div id="start-menu" class="menu-box">
             <p class="subtitle">[ НАЖМИТЕ ДЛЯ АКТИВАЦИИ ]</p>
             <button id="activate-btn" class="glow-button">АКТИВИРОВАТЬ</button>
         </div>
 
-        <!-- Второе меню (Скрытое по умолчанию) -->
-        <div id="next-menu" class="menu-box hidden">
-            <p class="subtitle">[ СЛЕДУЮЩЕЕ МЕНЮ ]</p>
-            <div class="placeholder-text">Здесь будет ваш контент, который вы назовете позже.</div>
+        <!-- ЭКРАН 2: Меню из 3-х кнопок в столбик -->
+        <div id="buttons-menu" class="menu-box hidden">
+            <p class="subtitle">[ ВЫБЕРИТЕ РАЗДЕЛ ]</p>
+            <div class="button-column">
+                <button id="btn-who" class="glow-button">Кто такие ELITE?</button>
+                <button id="btn-rules" class="glow-button">Где взять устав и что он представляет?</button>
+                <button id="btn-jobs" class="glow-button">Вакансии</button>
+            </div>
+        </div>
+
+        <!-- ЭКРАН 3: Экран с текстом про ELITE -->
+        <div id="text-menu" class="menu-box hidden">
+            <p class="subtitle">[ ИНФОРМАЦИЯ: КТО ТАКИЕ ELITE ]</p>
+            <div class="info-text">
+                ELITE - Гвардия отдела Metro Police Forces и Overwatch Transhuman Arms, одно из подразделений созданное Генеральным Штабом Сити-17. В данное подразделение входят строго лучшие юниты из рядов всех Гарнизонов ГО и OTA. Подразделение имеет дополнительные корпуса: Корпус юстиции и Корпус Командования. Подразделение занимается строгим надзором за соблюдением устава среди остальных юнитов ГО, а в случае нарушения того его пресечением и вынесением приговора. Для остальных юнитов ГО те является строгим образцом и фигурой ГО на которую стоит ровняться.
+            </div>
+            <!-- Кнопка Назад, чтобы не застрять на экране с текстом -->
+            <button id="btn-back" class="glow-button back-btn">НАЗАД</button>
         </div>
 
     </div>
