@@ -29,20 +29,16 @@
         <!-- ЭКРАН 3: Кто такие ELITE -->
         <div id="text-menu" class="menu-box hidden">
             <p class="subtitle">[ ИНФОРМАЦИЯ: КТО ТАКИЕ ELITE ]</p>
-            <div class="info-text">
-                ELITE - Гвардия отдела Metro Police Forces и Overwatch Transhuman Arms, одно из подразделений созданное Генеральным Штабом Сити-17. В данное подразделение входят строго лучшие юниты из рядов всех Гарнизонов ГО и OTA. Подразделение имеет дополнительные корпуса: Корпус юстиции и Корпус Командования. Подразделение занимается строгим надзором за соблюдением устава среди остальных юнитов ГО, а в случае нарушения того его пресечением и вынесением приговора. Для остальных юнитов ГО те является строгим образцом и фигурой ГО на которую стоит ровняться.
-            </div>
+            <!-- Добавили класс type-text и data-text для эффекта печати -->
+            <div id="text-who" class="info-text type-text" data-text="ELITE - Гвардия отдела Metro Police Forces и Overwatch Transhuman Arms, одно из подразделений созданное Генеральным Штабом Сити-17. В данное подразделение входят строго лучшие юниты из рядов всех Гарнизонов ГО и OTA. Подразделение имеет дополнительные корпуса: Корпус юстиции и Корпус Командования. Подразделение занимается строгим надзором за соблюдением устава среди остальных юнитов ГО, а в случае нарушения того его пресечением и вынесением приговора. Для остальных юнитов ГО те является строгим образцом и фигурой ГО на которую стоит ровняться."></div>
             <button id="btn-back-who" class="glow-button back-btn">НАЗАД</button>
         </div>
 
         <!-- ЭКРАН 4: Устав -->
         <div id="rules-menu" class="menu-box hidden">
             <p class="subtitle">[ ИНФОРМАЦИЯ: УСТАВ ]</p>
-            <div class="info-text">
-                Устав — это свод правил, который задаёт порядок работы и поведения в какой‑либо организации или структуру. В Уставе есть 8 пунктов.
-            </div>
+            <div id="text-rules" class="info-text type-text" data-text="Устав — это свод правил, который задаёт порядок работы и поведения в какой‑либо организации или структуре. В Уставе есть 8 пунктов."></div>
             <div class="link-container">
-                <!-- Точная ссылка на нужный заголовок в документе -->
                 <a href="https://google.com" target="_blank" class="glow-button text-link-btn">ОТКРЫТЬ УСТАВ</a>
             </div>
             <button id="btn-back-rules" class="glow-button back-btn">НАЗАД</button>
@@ -53,14 +49,10 @@
             <p class="subtitle">[ ДОСТУПНЫЕ ВАКАНСИИ ]</p>
             <div class="jobs-list">
                 <div class="job-item">
-                    <div class="info-text">
-                        1. C17.MPF.ELITE.JURY.OFC- Юнит Гражданской Обороны MPF под названием Элит либо ELITE. Занимается слежкой за соблюдением устава сотрудников Г.О . Так-же следят за порядком и дисциплиной, выявляют дефекты и отклонения.
-                    </div>
+                    <div id="text-job1" class="info-text type-text" data-text="1. C17.MPF.ELITE.JURY.OFC- Юнит Гражданской Обороны MPF под названием Элит либо ELITE. Занимается слежкой за соблюдением устава сотрудников Г.О . Так-же следят за порядком и дисциплиной, выявляют дефекты и отклонения."></div>
                 </div>
                 <div class="job-item">
-                    <div class="info-text">
-                        2. C17.OTA.ELITE.LEGION- Экспериментальные единицы ОТА, предназначены для охраны важных лиц, предотвращения атак на город, бунтов и тому подобное
-                    </div>
+                    <div id="text-job2" class="info-text type-text" data-text="2. C17.OTA.ELITE.LEGION- Экспериментальные единицы ОТА, предназначены для охраны важных лиц, предотвращения атак на город, бунтов и тому подобное"></div>
                 </div>
             </div>
             <button id="btn-back-jobs" class="glow-button back-btn">НАЗАД</button>
@@ -68,7 +60,7 @@
 
     </div>
 
-    <!-- Встроенный скрипт логики сайта -->
+    <!-- Обновленный встроенный скрипт с эффектом печатной машинки -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const startMenu = document.getElementById('start-menu');
@@ -86,14 +78,72 @@
             const btnBackRules = document.getElementById('btn-back-rules');
             const btnBackJobs = document.getElementById('btn-back-jobs');
 
-            activateBtn.onclick = () => { startMenu.classList.add('hidden'); buttonsMenu.classList.remove('hidden'); };
-            btnWho.onclick = () => { buttonsMenu.classList.add('hidden'); textMenu.classList.remove('hidden'); };
-            btnRules.onclick = () => { buttonsMenu.classList.add('hidden'); rulesMenu.classList.remove('hidden'); };
-            btnJobs.onclick = () => { buttonsMenu.classList.add('hidden'); jobsMenu.classList.remove('hidden'); };
+            // Массив для хранения активных таймеров печати (чтобы сбрасывать их при выходе)
+            let typingTimers = [];
 
-            btnBackWho.onclick = () => { textMenu.classList.add('hidden'); buttonsMenu.classList.remove('hidden'); };
-            btnBackRules.onclick = () => { rulesMenu.classList.add('hidden'); buttonsMenu.classList.remove('hidden'); };
-            btnBackJobs.onclick = () => { jobsMenu.classList.add('hidden'); buttonsMenu.classList.remove('hidden'); };
+            // Функция эффекта печатной машинки
+            function typeWriter(elementId) {
+                const element = document.getElementById(elementId);
+                if (!element) return;
+                
+                const text = element.getAttribute('data-text');
+                element.innerHTML = ''; // Очищаем старый текст
+                element.classList.add('typing-cursor'); // Добавляем мигающий курсор терминала
+                
+                let i = 0;
+                // Скорость печати: 15 миллисекунд на одну букву (оптимально для быстрого чтения)
+                const speed = 15; 
+
+                function type() {
+                    if (i < text.length) {
+                        element.innerHTML += text.charAt(i);
+                        i++;
+                        const timer = setTimeout(type, speed);
+                        typingTimers.push(timer);
+                    } else {
+                        element.classList.remove('typing-cursor'); // Убираем курсор, когда текст закончился
+                    }
+                }
+                type();
+            }
+
+            // Функция остановки всех текущих анимаций печати
+            function resetTyping() {
+                typingTimers.forEach(timer => clearTimeout(timer));
+                typingTimers = [];
+                // Очищаем текст во всех полях, чтобы подготовить к новой печати
+                document.querySelectorAll('.type-text').forEach(el => {
+                    el.innerHTML = '';
+                    el.classList.remove('typing-cursor');
+                });
+            }
+
+            // Логика переключения экранов
+            activateBtn.onclick = () => { startMenu.classList.add('hidden'); buttonsMenu.classList.remove('hidden'); };
+            
+            btnWho.onclick = () => { 
+                buttonsMenu.classList.add('hidden'); 
+                textMenu.classList.remove('hidden'); 
+                typeWriter('text-who'); // Запуск печати
+            };
+            
+            btnRules.onclick = () => { 
+                buttonsMenu.classList.add('hidden'); 
+                rulesMenu.classList.remove('hidden'); 
+                typeWriter('text-rules'); // Запуск печати
+            };
+            
+            btnJobs.onclick = () => { 
+                buttonsMenu.classList.add('hidden'); 
+                jobsMenu.classList.remove('hidden'); 
+                typeWriter('text-job1'); // Запуск печати для первого пункта
+                typeWriter('text-job2'); // Запуск печати для второго пункта
+            };
+
+            // Возвраты назад (сбрасывают печать)
+            btnBackWho.onclick = () => { resetTyping(); textMenu.classList.add('hidden'); buttonsMenu.classList.remove('hidden'); };
+            btnBackRules.onclick = () => { resetTyping(); rulesMenu.classList.add('hidden'); buttonsMenu.classList.remove('hidden'); };
+            btnBackJobs.onclick = () => { resetTyping(); jobsMenu.classList.add('hidden'); buttonsMenu.classList.remove('hidden'); };
         });
     </script>
 </body>
