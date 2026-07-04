@@ -1,4 +1,4 @@
-/* Базовые настройки темной темы */
+/* Настройки темной темы */
 body {
     margin: 0;
     padding: 0;
@@ -142,7 +142,7 @@ body {
     50% { opacity: 0; }
 }
 
-/* Красивая кнопка музыки СТРОГО СНИЗУ */
+/* Кнопка музыки под рамкой */
 .music-fixed-btn {
     margin-top: 25px;
     background: transparent;
@@ -164,7 +164,6 @@ body {
     box-shadow: 0 0 25px #ff2200;
 }
 
-/* Стиль тусклой кнопки музыки при выключении */
 .music-fixed-btn.muted {
     border-color: #441111;
     color: #441111;
