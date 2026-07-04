@@ -8,8 +8,11 @@
 </head>
 <body>
 
-    <!-- Подключение вашего файла music.mp3 напрямую -->
-    <audio id="bg-music" src="music.mp3" loop></audio>
+    <!-- Скрытый плеер SoundCloud с треком Aphex Twin - Actium (код полностью очищен от синих полос) -->
+    <iframe id="bg-music" width="0" height="0" scrolling="no" frameborder="no" allow="autoplay" 
+        src="https://soundcloud.com" 
+        style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0; border: none;">
+    </iframe>
 
     <div class="main-container">
         
@@ -65,6 +68,8 @@
     <!-- Красивая кнопка музыки СНИЗУ -->
     <button id="music-toggle-btn" class="music-fixed-btn">[ МУЗЫКА: ВКЛ ]</button>
 
+    <!-- Подключаем официальный скрипт управления плеером -->
+    <script src="https://soundcloud.com"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const startMenu = document.getElementById('start-menu');
@@ -82,20 +87,22 @@
             const btnBackRules = document.getElementById('btn-back-rules');
             const btnBackJobs = document.getElementById('btn-back-jobs');
 
-            const audio = document.getElementById('bg-music');
+            // Связываем код с плеером SoundCloud
+            const widget = SC.Widget(document.getElementById('bg-music'));
             const musicBtn = document.getElementById('music-toggle-btn');
+            let isPlaying = true;
 
-            // Управление музыкой вручную
             musicBtn.onclick = () => {
-                if (audio.paused) {
-                    audio.play().catch(e => {});
-                    musicBtn.innerHTML = "[ МУЗЫКА: ВКЛ ]";
-                    musicBtn.classList.remove('muted');
-                } else {
-                    audio.pause();
+                if (isPlaying) {
+                    widget.pause();
                     musicBtn.innerHTML = "[ МУЗЫКА: ВЫКЛ ]";
                     musicBtn.classList.add('muted');
+                } else {
+                    widget.play();
+                    musicBtn.innerHTML = "[ МУЗЫКА: ВКЛ ]";
+                    musicBtn.classList.remove('muted');
                 }
+                isPlaying = !isPlaying;
             };
 
             let typingTimers = [];
@@ -133,11 +140,11 @@
                 });
             }
 
-            // Переключение экранов + Железный старт музыки при первом клике
+            // При клике на АКТИВИРОВАТЬ включаем музыку из SoundCloud
             activateBtn.onclick = () => { 
                 startMenu.classList.add('hidden'); 
                 buttonsMenu.classList.remove('hidden'); 
-                audio.play().catch(e => console.log("Автоплей заблокирован браузером"));
+                widget.play(); // Железный запуск звука
             };
             
             btnWho.onclick = () => { buttonsMenu.classList.add('hidden'); textMenu.classList.remove('hidden'); typeWriter('text-who'); };
