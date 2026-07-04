@@ -50,16 +50,12 @@
         <!-- ЭКРАН 5: Вакансии -->
         <div id="jobs-menu" class="menu-box hidden">
             <p class="subtitle">[ ДОСТУПНЫЕ ВАКАНСИИ ]</p>
-            
             <div class="jobs-list">
-                <!-- Вакансия 1: Только текст -->
                 <div class="job-item">
                     <div class="info-text">
                         1. C17.MPF.ELITE.JURY.OFC- Юнит Гражданской Обороны MPF под названием Элит либо ELITE. Занимается слежкой за соблюдением устава сотрудников Г.О . Так-же следят за порядком и дисциплиной, выявляют дефекты и отклонения.
                     </div>
                 </div>
-
-                <!-- Вакансия 2: Текст + Единственное фото -->
                 <div class="job-item">
                     <div class="info-text">
                         2. C17.OTA.ELITE.LEGION- Экспериментальные единицы ОТА, предназначены для охраны важных лиц, предотвращения атак на город, бунтов и тому подобное
@@ -67,12 +63,38 @@
                     <img src="ota.jpg" alt="OTA LEGION" class="job-img">
                 </div>
             </div>
-
             <button id="btn-back-jobs" class="glow-button back-btn">НАЗАД</button>
         </div>
 
     </div>
 
-    <script src="script.js"></script>
+    <!-- Встроенный скрипт, который точно сработает -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const startMenu = document.getElementById('start-menu');
+            const buttonsMenu = document.getElementById('buttons-menu');
+            const textMenu = document.getElementById('text-menu');
+            const rulesMenu = document.getElementById('rules-menu');
+            const jobsMenu = document.getElementById('jobs-menu');
+
+            const activateBtn = document.getElementById('activate-btn');
+            const btnWho = document.getElementById('btn-who');
+            const btnRules = document.getElementById('btn-rules');
+            const btnJobs = document.getElementById('btn-jobs');
+
+            const btnBackWho = document.getElementById('btn-back-who');
+            const btnBackRules = document.getElementById('btn-back-rules');
+            const btnBackJobs = document.getElementById('btn-back-jobs');
+
+            activateBtn.onclick = () => { startMenu.classList.add('hidden'); buttonsMenu.classList.remove('hidden'); };
+            btnWho.onclick = () => { buttonsMenu.classList.add('hidden'); textMenu.classList.remove('hidden'); };
+            btnRules.onclick = () => { buttonsMenu.classList.add('hidden'); rulesMenu.classList.remove('hidden'); };
+            btnJobs.onclick = () => { buttonsMenu.classList.add('hidden'); jobsMenu.classList.remove('hidden'); };
+
+            btnBackWho.onclick = () => { textMenu.classList.add('hidden'); buttonsMenu.classList.remove('hidden'); };
+            btnBackRules.onclick = () => { rulesMenu.classList.add('hidden'); buttonsMenu.classList.remove('hidden'); };
+            btnBackJobs.onclick = () => { jobsMenu.classList.add('hidden'); buttonsMenu.classList.remove('hidden'); };
+        });
+    </script>
 </body>
 </html>
