@@ -1,44 +1,45 @@
-// Экраны
+// Находим все экраны сайта
 const startMenu = document.getElementById('start-menu');
 const buttonsMenu = document.getElementById('buttons-menu');
 const textMenu = document.getElementById('text-menu');
 const rulesMenu = document.getElementById('rules-menu');
 
-// Кнопки переходов
+// Находим кнопки переходов
 const activateBtn = document.getElementById('activate-btn');
 const btnWho = document.getElementById('btn-who');
 const btnRules = document.getElementById('btn-rules');
 
-// Кнопки "Назад"
+// Находим кнопки "Назад"
 const btnBackWho = document.getElementById('btn-back-who');
 const btnBackRules = document.getElementById('btn-back-rules');
 
-// 1. АКТИВИРОВАТЬ -> открывает главное меню
+// 1. Нажатие на "АКТИВИРОВАТЬ" -> показывает меню с кнопками
 activateBtn.addEventListener('click', () => {
     startMenu.classList.add('hidden');
     buttonsMenu.classList.remove('hidden');
 });
 
-// 2. Кнопка "Кто такие ELITE?" -> открывает первый текст
+// 2. Нажатие на "Кто такие ELITE?" -> показывает экран с текстом
 btnWho.addEventListener('click', () => {
     buttonsMenu.classList.add('hidden');
     textMenu.classList.remove('hidden');
 });
 
-// 3. Кнопка "Где взять устав..." -> открывает экран с уставом и ссылкой
+// 3. Нажатие на "Где взять устав..." -> показывает экран с уставом
 btnRules.addEventListener('click', () => {
     buttonsMenu.classList.add('hidden');
     rulesMenu.classList.remove('hidden');
 });
 
-// 4. Кнопка "Назад" из меню "Кто такие" -> возвращает в главное меню
+// 4. Нажатие на "Назад" на экране "Кто такие ELITE?" -> возвращает к кнопкам
 btnBackWho.addEventListener('click', () => {
     textMenu.classList.add('hidden');
-    buttonsMenu.github.io / buttonsMenu.classList.remove('hidden');
+    buttonsMenu.classList.remove('hidden');
 });
 
-// 5. Кнопка "Назад" из меню Устава -> возвращает в главное меню
+// 5. Нажатие на "Назад" на экране Устава -> возвращает к кнопкам
 btnBackRules.addEventListener('click', () => {
     rulesMenu.classList.add('hidden');
     buttonsMenu.classList.remove('hidden');
 });
+
