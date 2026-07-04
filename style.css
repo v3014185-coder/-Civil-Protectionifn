@@ -1,4 +1,3 @@
-/* Базовые настройки темной темы */
 body {
     margin: 0;
     padding: 0;
@@ -11,17 +10,16 @@ body {
     overflow: hidden;
 }
 
-/* Общий контейнер со светящейся рамкой */
 .main-container {
     border: 2px solid #ff2200;
     box-shadow: 0 0 20px #ff2200;
-    padding: 60px;
+    padding: 40px;
     background-color: #000;
     text-align: center;
-    min-width: 300px;
+    max-width: 650px; /* Немного расширили для удобства чтения текста */
+    width: 90%;
 }
 
-/* Стили для меню */
 .menu-box {
     transition: all 0.5s ease;
 }
@@ -30,21 +28,28 @@ body {
     color: #551111;
     font-size: 14px;
     letter-spacing: 2px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
-/* Красная светящаяся кнопка */
+/* Выравнивание кнопок в столбик с расстоянием */
+.button-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Расстояние между кнопками в столбике */
+}
+
 .glow-button {
     background: transparent;
     border: 2px solid #ff2200;
     color: #ff2200;
-    padding: 15px 40px;
-    font-size: 24px;
+    padding: 15px 25px;
+    font-size: 18px; /* Чуть уменьшили шрифт, чтобы длинный текст влезал в кнопки */
     font-weight: bold;
-    letter-spacing: 3px;
+    letter-spacing: 1px;
     cursor: pointer;
     box-shadow: inset 0 0 10px #ff2200, 0 0 10px #ff2200;
     transition: 0.3s;
+    text-transform: uppercase;
 }
 
 .glow-button:hover {
@@ -53,13 +58,22 @@ body {
     box-shadow: 0 0 30px #ff2200;
 }
 
-/* Текст-заглушка для второго меню */
-.placeholder-text {
-    color: #ffaa00;
-    font-size: 18px;
+/* Стиль для блока с текстом */
+.info-text {
+    color: #ff2200;
+    text-shadow: 0 0 5px #ff2200;
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: left; /* Текст ровный по левому краю */
+    margin-bottom: 30px;
 }
 
-/* Класс для скрытия элементов */
+/* Кнопка Назад чуть поменьше */
+.back-btn {
+    font-size: 14px;
+    padding: 10px 20px;
+}
+
 .hidden {
     display: none !important;
 }
