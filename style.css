@@ -16,7 +16,7 @@ body {
     padding: 40px;
     background-color: #000;
     text-align: center;
-    max-width: 650px; /* Немного расширили для удобства чтения текста */
+    max-width: 650px;
     width: 90%;
 }
 
@@ -31,11 +31,10 @@ body {
     margin-bottom: 30px;
 }
 
-/* Выравнивание кнопок в столбик с расстоянием */
 .button-column {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Расстояние между кнопками в столбике */
+    gap: 20px;
 }
 
 .glow-button {
@@ -43,13 +42,15 @@ body {
     border: 2px solid #ff2200;
     color: #ff2200;
     padding: 15px 25px;
-    font-size: 18px; /* Чуть уменьшили шрифт, чтобы длинный текст влезал в кнопки */
+    font-size: 18px;
     font-weight: bold;
     letter-spacing: 1px;
     cursor: pointer;
     box-shadow: inset 0 0 10px #ff2200, 0 0 10px #ff2200;
     transition: 0.3s;
     text-transform: uppercase;
+    text-decoration: none; /* Убирает подчеркивание, если это ссылка */
+    display: inline-block;
 }
 
 .glow-button:hover {
@@ -58,17 +59,34 @@ body {
     box-shadow: 0 0 30px #ff2200;
 }
 
-/* Стиль для блока с текстом */
 .info-text {
     color: #ff2200;
     text-shadow: 0 0 5px #ff2200;
     font-size: 16px;
     line-height: 1.6;
-    text-align: left; /* Текст ровный по левому краю */
+    text-align: left;
     margin-bottom: 30px;
 }
 
-/* Кнопка Назад чуть поменьше */
+/* Стили для контейнера ссылки */
+.link-container {
+    margin-bottom: 30px;
+}
+
+.text-link-btn {
+    font-size: 15px;
+    padding: 12px 20px;
+    border-color: #ffaa00; /* Выделим ссылку оранжевым свечением для акцента, или замените на #ff2200 для строго красного */
+    color: #ffaa00;
+    box-shadow: inset 0 0 10px #ffaa00, 0 0 10px #ffaa00;
+}
+
+.text-link-btn:hover {
+    background-color: #ffaa00;
+    color: #000;
+    box-shadow: 0 0 30px #ffaa00;
+}
+
 .back-btn {
     font-size: 14px;
     padding: 10px 20px;
@@ -77,3 +95,4 @@ body {
 .hidden {
     display: none !important;
 }
+
