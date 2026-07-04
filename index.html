@@ -8,8 +8,8 @@
 </head>
 <body>
 
-    <!-- Прямое подключение аудиофайла без плееров-картинок -->
-    <audio id="bg-music" src="https://soundhelix.com" loop></audio>
+    <!-- Подключение вашего файла music.mp3 напрямую -->
+    <audio id="bg-music" src="music.mp3" loop></audio>
 
     <div class="main-container">
         
@@ -62,7 +62,7 @@
 
     </div>
 
-    <!-- Постоянная стильная кнопка музыки СНИЗУ -->
+    <!-- Красивая кнопка музыки СНИЗУ -->
     <button id="music-toggle-btn" class="music-fixed-btn">[ МУЗЫКА: ВКЛ ]</button>
 
     <script>
@@ -82,15 +82,13 @@
             const btnBackRules = document.getElementById('btn-back-rules');
             const btnBackJobs = document.getElementById('btn-back-jobs');
 
-            // Музыка
             const audio = document.getElementById('bg-music');
             const musicBtn = document.getElementById('music-toggle-btn');
-            let isPlaying = false;
 
-            // Кнопка музыки работает отдельно
+            // Управление музыкой вручную
             musicBtn.onclick = () => {
                 if (audio.paused) {
-                    audio.play().catch(e => console.log("Включите после клика по сайту"));
+                    audio.play().catch(e => {});
                     musicBtn.innerHTML = "[ МУЗЫКА: ВКЛ ]";
                     musicBtn.classList.remove('muted');
                 } else {
@@ -100,7 +98,6 @@
                 }
             };
 
-            // Массив таймеров печати
             let typingTimers = [];
 
             function typeWriter(elementId) {
@@ -136,12 +133,11 @@
                 });
             }
 
-            // Переключение меню + СТАРТ МУЗЫКИ при первой активации
+            // Переключение экранов + Железный старт музыки при первом клике
             activateBtn.onclick = () => { 
                 startMenu.classList.add('hidden'); 
                 buttonsMenu.classList.remove('hidden'); 
-                // Автозапуск музыки при клике
-                audio.play().then(() => { isPlaying = true; }).catch(e => {});
+                audio.play().catch(e => console.log("Автоплей заблокирован браузером"));
             };
             
             btnWho.onclick = () => { buttonsMenu.classList.add('hidden'); textMenu.classList.remove('hidden'); typeWriter('text-who'); };
