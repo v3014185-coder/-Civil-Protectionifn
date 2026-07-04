@@ -8,10 +8,8 @@
 </head>
 <body>
 
-    <!-- Скрытый плеер SoundCloud с треком Aphex Twin - Actium -->
-    <iframe id="bg-music" width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" 
-        src="https://soundcloud.com">
-    </iframe>
+    <!-- Прямое подключение аудиофайла без плееров-картинок -->
+    <audio id="bg-music" src="https://soundhelix.com" loop></audio>
 
     <div class="main-container">
         
@@ -64,11 +62,9 @@
 
     </div>
 
-    <!-- Постоянная кнопка управления музыкой снизу экрана -->
-    <button id="music-toggle-btn" class="music-fixed-btn">[ 🔊 МУЗЫКА: ВКЛ ]</button>
+    <!-- Постоянная стильная кнопка музыки СНИЗУ -->
+    <button id="music-toggle-btn" class="music-fixed-btn">[ МУЗЫКА: ВКЛ ]</button>
 
-    <!-- Скрипт логики, печатной машинки и музыки -->
-    <script src="https://soundcloud.com"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const startMenu = document.getElementById('start-menu');
@@ -86,30 +82,27 @@
             const btnBackRules = document.getElementById('btn-back-rules');
             const btnBackJobs = document.getElementById('btn-back-jobs');
 
-            // Музыкальная логика
-            const musicFrame = document.getElementById('bg-music');
-            const musicWidget = SC.Widget(musicFrame);
+            // Музыка
+            const audio = document.getElementById('bg-music');
             const musicBtn = document.getElementById('music-toggle-btn');
-            let isPlaying = true;
+            let isPlaying = false;
 
-            // Управление выключением музыки
+            // Кнопка музыки работает отдельно
             musicBtn.onclick = () => {
-                if (isPlaying) {
-                    musicWidget.pause();
-                    musicBtn.innerHTML = "[ 🔇 МУЗЫКА: ВЫКЛ ]";
-                    musicBtn.classList.add('muted');
-                } else {
-                    musicWidget.play();
-                    musicBtn.innerHTML = "[ 🔊 МУЗЫКА: ВКЛ ]";
+                if (audio.paused) {
+                    audio.play().catch(e => console.log("Включите после клика по сайту"));
+                    musicBtn.innerHTML = "[ МУЗЫКА: ВКЛ ]";
                     musicBtn.classList.remove('muted');
+                } else {
+                    audio.pause();
+                    musicBtn.innerHTML = "[ МУЗЫКА: ВЫКЛ ]";
+                    musicBtn.classList.add('muted');
                 }
-                isPlaying = !isPlaying;
             };
 
-            // Массив для хранения активных таймеров печати
+            // Массив таймеров печати
             let typingTimers = [];
 
-            // Функция эффекта печатной машинки
             function typeWriter(elementId) {
                 const element = document.getElementById(elementId);
                 if (!element) return;
@@ -143,8 +136,13 @@
                 });
             }
 
-            // Переключение экранов
-            activateBtn.onclick = () => { startMenu.classList.add('hidden'); buttonsMenu.classList.remove('hidden'); };
+            // Переключение меню + СТАРТ МУЗЫКИ при первой активации
+            activateBtn.onclick = () => { 
+                startMenu.classList.add('hidden'); 
+                buttonsMenu.classList.remove('hidden'); 
+                // Автозапуск музыки при клике
+                audio.play().then(() => { isPlaying = true; }).catch(e => {});
+            };
             
             btnWho.onclick = () => { buttonsMenu.classList.add('hidden'); textMenu.classList.remove('hidden'); typeWriter('text-who'); };
             btnRules.onclick = () => { buttonsMenu.classList.add('hidden'); rulesMenu.classList.remove('hidden'); typeWriter('text-rules'); };
