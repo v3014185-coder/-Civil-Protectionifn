@@ -8,6 +8,11 @@
 </head>
 <body>
 
+    <!-- Скрытый плеер SoundCloud с треком Aphex Twin - Actium -->
+    <iframe id="bg-music" width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" 
+        src="https://soundcloud.com">
+    </iframe>
+
     <div class="main-container">
         
         <!-- ЭКРАН 1: Стартовое меню -->
@@ -29,7 +34,6 @@
         <!-- ЭКРАН 3: Кто такие ELITE -->
         <div id="text-menu" class="menu-box hidden">
             <p class="subtitle">[ ИНФОРМАЦИЯ: КТО ТАКИЕ ELITE ]</p>
-            <!-- Добавили класс type-text и data-text для эффекта печати -->
             <div id="text-who" class="info-text type-text" data-text="ELITE - Гвардия отдела Metro Police Forces и Overwatch Transhuman Arms, одно из подразделений созданное Генеральным Штабом Сити-17. В данное подразделение входят строго лучшие юниты из рядов всех Гарнизонов ГО и OTA. Подразделение имеет дополнительные корпуса: Корпус юстиции и Корпус Командования. Подразделение занимается строгим надзором за соблюдением устава среди остальных юнитов ГО, а в случае нарушения того его пресечением и вынесением приговора. Для остальных юнитов ГО те является строгим образцом и фигурой ГО на которую стоит ровняться."></div>
             <button id="btn-back-who" class="glow-button back-btn">НАЗАД</button>
         </div>
@@ -60,7 +64,11 @@
 
     </div>
 
-    <!-- Обновленный встроенный скрипт с эффектом печатной машинки -->
+    <!-- Постоянная кнопка управления музыкой снизу экрана -->
+    <button id="music-toggle-btn" class="music-fixed-btn">[ 🔊 МУЗЫКА: ВКЛ ]</button>
+
+    <!-- Скрипт логики, печатной машинки и музыки -->
+    <script src="https://soundcloud.com"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const startMenu = document.getElementById('start-menu');
@@ -78,7 +86,27 @@
             const btnBackRules = document.getElementById('btn-back-rules');
             const btnBackJobs = document.getElementById('btn-back-jobs');
 
-            // Массив для хранения активных таймеров печати (чтобы сбрасывать их при выходе)
+            // Музыкальная логика
+            const musicFrame = document.getElementById('bg-music');
+            const musicWidget = SC.Widget(musicFrame);
+            const musicBtn = document.getElementById('music-toggle-btn');
+            let isPlaying = true;
+
+            // Управление выключением музыки
+            musicBtn.onclick = () => {
+                if (isPlaying) {
+                    musicWidget.pause();
+                    musicBtn.innerHTML = "[ 🔇 МУЗЫКА: ВЫКЛ ]";
+                    musicBtn.classList.add('muted');
+                } else {
+                    musicWidget.play();
+                    musicBtn.innerHTML = "[ 🔊 МУЗЫКА: ВКЛ ]";
+                    musicBtn.classList.remove('muted');
+                }
+                isPlaying = !isPlaying;
+            };
+
+            // Массив для хранения активных таймеров печати
             let typingTimers = [];
 
             // Функция эффекта печатной машинки
@@ -87,11 +115,10 @@
                 if (!element) return;
                 
                 const text = element.getAttribute('data-text');
-                element.innerHTML = ''; // Очищаем старый текст
-                element.classList.add('typing-cursor'); // Добавляем мигающий курсор терминала
+                element.innerHTML = '';
+                element.classList.add('typing-cursor');
                 
                 let i = 0;
-                // Скорость печати: 15 миллисекунд на одну букву (оптимально для быстрого чтения)
                 const speed = 15; 
 
                 function type() {
@@ -101,46 +128,28 @@
                         const timer = setTimeout(type, speed);
                         typingTimers.push(timer);
                     } else {
-                        element.classList.remove('typing-cursor'); // Убираем курсор, когда текст закончился
+                        element.classList.remove('typing-cursor');
                     }
                 }
                 type();
             }
 
-            // Функция остановки всех текущих анимаций печати
             function resetTyping() {
                 typingTimers.forEach(timer => clearTimeout(timer));
                 typingTimers = [];
-                // Очищаем текст во всех полях, чтобы подготовить к новой печати
                 document.querySelectorAll('.type-text').forEach(el => {
                     el.innerHTML = '';
                     el.classList.remove('typing-cursor');
                 });
             }
 
-            // Логика переключения экранов
+            // Переключение экранов
             activateBtn.onclick = () => { startMenu.classList.add('hidden'); buttonsMenu.classList.remove('hidden'); };
             
-            btnWho.onclick = () => { 
-                buttonsMenu.classList.add('hidden'); 
-                textMenu.classList.remove('hidden'); 
-                typeWriter('text-who'); // Запуск печати
-            };
-            
-            btnRules.onclick = () => { 
-                buttonsMenu.classList.add('hidden'); 
-                rulesMenu.classList.remove('hidden'); 
-                typeWriter('text-rules'); // Запуск печати
-            };
-            
-            btnJobs.onclick = () => { 
-                buttonsMenu.classList.add('hidden'); 
-                jobsMenu.classList.remove('hidden'); 
-                typeWriter('text-job1'); // Запуск печати для первого пункта
-                typeWriter('text-job2'); // Запуск печати для второго пункта
-            };
+            btnWho.onclick = () => { buttonsMenu.classList.add('hidden'); textMenu.classList.remove('hidden'); typeWriter('text-who'); };
+            btnRules.onclick = () => { buttonsMenu.classList.add('hidden'); rulesMenu.classList.remove('hidden'); typeWriter('text-rules'); };
+            btnJobs.onclick = () => { buttonsMenu.classList.add('hidden'); jobsMenu.classList.remove('hidden'); typeWriter('text-job1'); typeWriter('text-job2'); };
 
-            // Возвраты назад (сбрасывают печать)
             btnBackWho.onclick = () => { resetTyping(); textMenu.classList.add('hidden'); buttonsMenu.classList.remove('hidden'); };
             btnBackRules.onclick = () => { resetTyping(); rulesMenu.classList.add('hidden'); buttonsMenu.classList.remove('hidden'); };
             btnBackJobs.onclick = () => { resetTyping(); jobsMenu.classList.add('hidden'); buttonsMenu.classList.remove('hidden'); };
