@@ -1,0 +1,65 @@
+/* Базовые настройки темной темы */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #050000;
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Общий контейнер со светящейся рамкой */
+.main-container {
+    border: 2px solid #ff2200;
+    box-shadow: 0 0 20px #ff2200;
+    padding: 60px;
+    background-color: #000;
+    text-align: center;
+    min-width: 300px;
+}
+
+/* Стили для меню */
+.menu-box {
+    transition: all 0.5s ease;
+}
+
+.subtitle {
+    color: #551111;
+    font-size: 14px;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+/* Красная светящаяся кнопка */
+.glow-button {
+    background: transparent;
+    border: 2px solid #ff2200;
+    color: #ff2200;
+    padding: 15px 40px;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    cursor: pointer;
+    box-shadow: inset 0 0 10px #ff2200, 0 0 10px #ff2200;
+    transition: 0.3s;
+}
+
+.glow-button:hover {
+    background-color: #ff2200;
+    color: #000;
+    box-shadow: 0 0 30px #ff2200;
+}
+
+/* Текст-заглушка для второго меню */
+.placeholder-text {
+    color: #ffaa00;
+    font-size: 18px;
+}
+
+/* Класс для скрытия элементов */
+.hidden {
+    display: none !important;
+}
